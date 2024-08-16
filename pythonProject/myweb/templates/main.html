@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        {% block title %}  {% endblock %}
+        {% load static %}
+        <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+        <link href="{% static 'styles/style1.css' %} " rel="stylesheet">
+    </head>
+        <body>
+
+     {% include 'navbar.html' %}
+
+     {% if massages %}
+
+            {% for massage in massages %}
+                <div class="alert alert-danger alert-dismissible">
+                    <button class="btn-close" type="button" data-bs-dismiss="alert"></button>
+                    <strong>{{ massage }}</strong>
+                </div>
+            {% endfor %}
+
+
+     {%  endif %}
+
+    {% block content %}
+
+    {% endblock %}
+
+
+    <script src="{% static 'js/script.js' %}"></script>
+    </body>
+</html>

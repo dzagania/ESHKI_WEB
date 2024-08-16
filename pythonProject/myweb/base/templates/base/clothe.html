@@ -1,0 +1,64 @@
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+    }
+
+    .stiles{
+        margin: 80px 30px;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+    }
+</style>
+
+<div class="home-container">
+
+    <div class="styles">
+        <h1>Style:</h1>
+        <br>
+        <a href="{{request.path}}">ALL ({{ styles.count }})</a>
+        {% for style in styles %}
+        <hr>
+            <a href="{{request.path}}?q={{style.name}}"> {{style}} ({{style.eshkhi.count}})</a>
+        {% endfor %}
+
+
+
+
+    </div>
+
+
+    <div>
+    <br>
+         <div>
+            <h1 id="unique" class="new">{{ heading }}</h1>
+         </div>
+
+    <br>
+        <div style="display: flex;">
+            {% for clothe in clothes %}
+             <div class="card" style="width: 18rem; margin-left: 20px;">
+              <img src="{{ clothe.picture.url }}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{ clothe.color }}</h5>
+                <p class="card-text">{{ clothe.description |slice:":70" }}</p>
+
+                {% if  request.user.is_authenticated %}
+                    <a href="#" class="btn btn-primary"> Buy now  </a>
+                    {% if clothe in request.user.clothes.all %}
+                        <a href="{% url 'delete' clothe.id %}" class="btn btn-primary"> Delete </a>
+                    {% else %}
+
+                        <a href="{% url 'adding' clothe.id %}" class="btn btn-primary"> Add </a>
+                    {% endif %}
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
